@@ -14,7 +14,7 @@ namespace APICatalago.Data
         {
         }
 
-        public DbSet<APICatalago.Models.Produto> Produtos { get; set; } = default!;
-        public DbSet<APICatalago.Models.Categoria> Categorias { get; set; } = default!;
+        public DbSet<APICatalago.Models.Produto> Produto { get; set; } = default!;
+        public DbSet<APICatalago.Models.Categoria> Categoria { get; set; } = default!;
     }
 }
