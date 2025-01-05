@@ -10,99 +10,51 @@ using APICatalago.Models;
 
 namespace APICatalago.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CategoriasController : ControllerBase
     {
-        private readonly APICatalagoContext _context;
+        private readonly APICatalogoContext _context;
 
-        public CategoriasController(APICatalagoContext context)
+        public CategoriasController(APICatalogoContext context)
         {
             _context = context;
         }
 
-        // GET: api/Categorias
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Categoria>>> GetCategoria()
+        public ActionResult<IEnumerable<Produto>> Get() //IEnumerable pode ser substituido por uma lista
         {
-            return await _context.Categoria.ToListAsync();
-        }
-
-        // GET: api/Categorias/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Categoria>> GetCategoria(int id)
-        {
-            var categoria = await _context.Categoria.FindAsync(id);
-
-            if (categoria == null)
+            var produtos = _context.Produtos.ToList();
+            if(produtos == null)
             {
-                return NotFound();
+                return NotFound("Produtos não encontrados"); //erro 404
             }
-
-            return categoria;
+            return produtos;
         }
 
-        // PUT: api/Categorias/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategoria(int id, Categoria categoria)
+        [HttpGet("{id}", Name="ObterProduto")]
+        public ActionResult<Produto> Get(int id) //ActionResult serve para poder retornar uma ação como NotFound()
         {
-            if (id != categoria.CategoriaId)
+            var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+            if(produto == null)
+            {
+                return NotFound("Produto não encontrado!");
+            }
+            return produto;
+        }
+
+        [HttpPost]
+        public ActionResult Post(Produto produto) //uso só ActionResult pois quero retornar apenas mensagens https
+        {
+            if(produto == null)
             {
                 return BadRequest();
             }
 
-            _context.Entry(categoria).State = EntityState.Modified;
+            _context.Produtos.Add(produto);
+            _context.SaveChanges();
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CategoriaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Categorias
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Categoria>> PostCategoria(Categoria categoria)
-        {
-            _context.Categoria.Add(categoria);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCategoria", new { id = categoria.CategoriaId }, categoria);
-        }
-
-        // DELETE: api/Categorias/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategoria(int id)
-        {
-            var categoria = await _context.Categoria.FindAsync(id);
-            if (categoria == null)
-            {
-                return NotFound();
-            }
-
-            _context.Categoria.Remove(categoria);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool CategoriaExists(int id)
-        {
-            return _context.Categoria.Any(e => e.CategoriaId == id);
+            return new CreatedAtRouteResult("ObterProduto", new { id = produto.ProdutoId }, produto); //retorna o metodo get com a rota ObterProduto
         }
     }
 }

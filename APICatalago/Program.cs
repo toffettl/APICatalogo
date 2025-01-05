@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using APICatalago.Data;
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<APICatalagoContext>(options =>
+builder.Services.AddDbContext<APICatalogoContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("APICatalagoContext") ?? throw new InvalidOperationException("Connection string 'APICatalagoContext' not found.")));
 
 // Add services to the container.
