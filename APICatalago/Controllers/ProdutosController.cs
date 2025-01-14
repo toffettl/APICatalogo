@@ -33,13 +33,15 @@ namespace APICatalago.Controllers
         }
 
         [HttpGet("{id}", Name = "ObterProduto")]
-        public ActionResult<Produto> Get(int id) //ActionResult serve para poder retornar uma ação como NotFound()
+        public ActionResult<Produto> Get([FromQuery] int id) //ActionResult serve para poder retornar uma ação como NotFound()
         {
             var produto = _context.Produto.FirstOrDefault(p => p.ProdutoId == id);
+
             if (produto == null)
             {
                 return NotFound("Produto não encontrado!");
             }
+
             return produto;
         }
 
