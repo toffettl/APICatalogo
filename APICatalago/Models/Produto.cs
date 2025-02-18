@@ -5,7 +5,7 @@ using APICatalogo.Validations;
 
 namespace APICatalago.Models
 {
-    public class Produto
+    public class Produto 
     {
         [Key]
         public int ProdutoId { get; set; }
