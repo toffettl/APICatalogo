@@ -51,7 +51,7 @@ namespace APICatalago.Controllers
 
         [HttpGet("{id:int:min(1)}", Name = "ObterCategoria")]
         public ActionResult<Categoria> Get(int id)
-        {
+        {   
             var categoria = _context.Categoria
                 .FirstOrDefault(c => c.CategoriaId == id);
 

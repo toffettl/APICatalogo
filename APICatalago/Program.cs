@@ -4,6 +4,7 @@ using APICatalago.Data;
 using System.Text.Json.Serialization;
 using APICatalogo.Services;
 using Microsoft.AspNetCore.Mvc;
+using APICatalogo.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<APICatalogoContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("APICatalagoContext") ?? throw new InvalidOperationException("Connection string 'APICatalagoContext' not found.")));
@@ -29,6 +30,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.ConfigureExceptionHandler();
 }
 
 app.UseHttpsRedirection();
