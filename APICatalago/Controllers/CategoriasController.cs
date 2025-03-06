@@ -9,6 +9,7 @@ using APICatalago.Data;
 using APICatalago.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using APICatalogo.Services;
+using APICatalogo.Filters;
 
 namespace APICatalago.Controllers
 {
@@ -18,11 +19,13 @@ namespace APICatalago.Controllers
     {
         private readonly APICatalogoContext _context;
         private readonly IMeuServico _meuServico;
+        private readonly ILogger _logger;
 
-        public CategoriasController(APICatalogoContext context, IMeuServico meuServico)
+        public CategoriasController(APICatalogoContext context, IMeuServico meuServico, ILogger<CategoriasController> logger)
         {
             _context = context;
             _meuServico = meuServico;
+            _logger = logger;
         }
 
         [HttpGet("UsandoFromServices/{nome}")]
@@ -44,9 +47,16 @@ namespace APICatalago.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Categoria>> Get()
+        [ServiceFilter(typeof(ApiLoggingFilter))]
+        public async Task<ActionResult<IEnumerable<Categoria>>> Get()
         {
-            return _context.Categoria.AsNoTracking().ToList();
+            try
+            {
+                return await _context.Categoria.AsNoTracking().ToListAsync();
+            }catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um problema ao tratar a solução");
+            } 
         }
 
         [HttpGet("{id:int:min(1)}", Name = "ObterCategoria")]

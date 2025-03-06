@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 using APICatalogo.Services;
 using Microsoft.AspNetCore.Mvc;
 using APICatalogo.Extensions;
+using APICatalogo.Filters;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<APICatalogoContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("APICatalagoContext") ?? throw new InvalidOperationException("Connection string 'APICatalagoContext' not found.")));
@@ -22,6 +23,7 @@ options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<ApiLoggingFilter>();
 
 var app = builder.Build();
 
