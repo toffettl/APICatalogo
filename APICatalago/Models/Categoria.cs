@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Microsoft.VisualBasic;
 
 namespace APICatalago.Models
@@ -21,6 +22,7 @@ namespace APICatalago.Models
         [StringLength(300)]
         public string? ImagemUrl { get; set; }
 
+        [JsonIgnore] //para não aparecer no json pois não é obrigatório
         public ICollection<Produto>? Produtos { get; set; } //1 categoria pode ter varios produtos
     }
 }

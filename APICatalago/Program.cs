@@ -6,6 +6,7 @@ using APICatalogo.Services;
 using Microsoft.AspNetCore.Mvc;
 using APICatalogo.Extensions;
 using APICatalogo.Filters;
+using APICatalogo.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<APICatalogoContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("APICatalagoContext") ?? throw new InvalidOperationException("Connection string 'APICatalagoContext' not found.")));
@@ -24,6 +25,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ApiLoggingFilter>();
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 
 var app = builder.Build();
 

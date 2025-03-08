@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using APICatalago.Data;
 using APICatalago.Models;
+using APICatalogo.Repositories;
 
 namespace APICatalago.Controllers
 {
@@ -14,80 +15,82 @@ namespace APICatalago.Controllers
     [ApiController]
     public class ProdutosController : ControllerBase
     {
-        private readonly APICatalogoContext _context;
+        private readonly IProdutoRepository _repository;
 
-        public ProdutosController(APICatalogoContext context)
+        public ProdutosController(IProdutoRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Produto>> Get() //IEnumerable pode ser substituido por uma lista
+        public ActionResult<IEnumerable<Produto>> Get()
         {
-            var produtos = _context.Produto.ToList();
-            if (produtos == null)
+            var produtos = _repository.GetProdutos().ToList();
+            if (produtos is null)
             {
-                return NotFound("Produtos não encontrados"); //erro 404
+                return NotFound();
             }
-            return produtos;
+            return Ok(produtos);
         }
 
         [HttpGet("{id}", Name = "ObterProduto")]
-        public ActionResult<Produto> Get([FromQuery] int id) //ActionResult serve para poder retornar uma ação como NotFound()
+        public ActionResult<Produto> Get(int id)
         {
-            var produto = _context.Produto.FirstOrDefault(p => p.ProdutoId == id);
-
-            if (produto == null)
+            var produto = _repository.GetProduto(id);
+            if (produto is null)
             {
-                return NotFound("Produto não encontrado!");
+                return NotFound("Produto não encontrado...");
             }
-
-            return produto;
+            return Ok(produto);
         }
 
         [HttpPost]
-        public ActionResult Post(Produto produto) //uso só ActionResult pois quero retornar apenas mensagens https
+        public ActionResult Post(Produto produto)
         {
-            if (produto == null)
+            if (produto is null)
             {
                 return BadRequest();
             }
 
-            _context.Produto.Add(produto);
-            _context.SaveChanges();
+            var novoProduto = _repository.Create(produto);
 
-            return new CreatedAtRouteResult("ObterProduto", new { id = produto.ProdutoId }, produto); //retorna o metodo get com a rota ObterProduto
+            return new CreatedAtRouteResult("ObterProduto",
+                new { id = novoProduto.ProdutoId }, novoProduto);
         }
 
-        [HttpPut("{id}")] //put atualiza o produto inteiro, se quisesse atualizar apenas o nome por exemplo usaria o patch
+        [HttpPut("{id:int}")]
         public ActionResult Put(int id, Produto produto)
         {
             if (id != produto.ProdutoId)
             {
-                return BadRequest("Produto não encontrado!");
+                return BadRequest();
             }
 
-            _context.Entry(produto).State = EntityState.Modified; //indicando que produto sera modificado
-            _context.SaveChanges();
+            bool atualizado = _repository.Update(produto);
 
-            return Ok(produto);
+            if(atualizado)
+            {
+                return Ok(produto);
+            }
+            else
+            {
+                return StatusCode(500, $"Falha ao atualizar produto de id: {id}");
+            }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public ActionResult Delete(int id)
         {
-            var produto = _context.Produto
-                .FirstOrDefault(p => p.ProdutoId == id);
+            bool deletado = _repository.Delete(id);
 
-            if(produto == null)
+            if (deletado)
             {
-                return NotFound("Produto não localizado!");
+                return Ok($"Produto de id {id} foi excluído!");
             }
-            
-            _context.Produto.Remove(produto);
-            _context.SaveChanges();
-
-            return Ok(produto);
+            else
+            {
+                return StatusCode(500, $"Falha ao excluir o porduto de id={id}");
+            }
         }
     }
 }
