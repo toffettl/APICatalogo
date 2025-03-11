@@ -13,6 +13,8 @@ using APICatalogo.Filters;
 using APICatalogo.Repositories;
 using APICatalogo.DTOs;
 using APICatalogo.DTOs.Mappings;
+using APICatalogo.Pagination;
+using Newtonsoft.Json;
 
 namespace APICatalago.Controllers
 {
@@ -42,6 +44,51 @@ namespace APICatalago.Controllers
             var categoriasDto = categorias.ToCategoriaDTOList(); 
 
             return Ok(categoriasDto);
+        }
+
+        [HttpGet("pagination")]
+        public ActionResult<IEnumerable<CategoriaDTO>> Get([FromQuery] CategoriasParameters categoriasParameters)
+        {
+            var categorias = _uof.CategoriaRepository.GetCategorias(categoriasParameters);
+
+            var metadata = new
+            {
+                categorias.TotalCount,
+                categorias.PageSize,
+                categorias.CurrentPage,
+                categorias.TotalPages,
+                categorias.HasNext,
+                categorias.HasPrevious
+            };
+
+            Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+            var categoriasDto = categorias.ToCategoriaDTOList();
+
+            return Ok(categoriasDto);
+        }
+
+        [HttpGet("filter/nome/pagination")]
+        public ActionResult<IEnumerable<CategoriaDTO>> GetCategoriasFiltradas([FromQuery] CategoriasFiltroNome categoriasFiltro)
+        {
+            var categorias = _uof.CategoriaRepository.GetCategoriasFiltroNome(categoriasFiltro);
+
+            var metadata = new
+            {
+                categorias.TotalCount,
+                categorias.PageSize,
+                categorias.CurrentPage,
+                categorias.TotalPages,
+                categorias.HasNext,
+                categorias.HasPrevious
+            };
+
+            Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+            var categoriasDto = categorias.ToCategoriaDTOList();
+
+            return Ok(categoriasDto);
+
         }
 
         [HttpGet("{id:int}", Name = "ObterCategoria")]

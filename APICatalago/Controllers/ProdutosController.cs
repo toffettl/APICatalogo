@@ -12,6 +12,8 @@ using APICatalogo.DTOs;
 using AutoMapper;
 using Azure;
 using Microsoft.AspNetCore.JsonPatch;
+using APICatalogo.Pagination;
+using Newtonsoft.Json;
 
 namespace APICatalago.Controllers
 {
@@ -37,6 +39,50 @@ namespace APICatalago.Controllers
             {
                 return NotFound();
             }
+
+            var produtosDto = _mapper.Map<IEnumerable<ProdutoDTO>>(produtos);
+
+            return Ok(produtosDto);
+        }
+
+        [HttpGet("pagination")]
+        public ActionResult<IEnumerable<ProdutoDTO>> Get([FromQuery] ProdutosParameters produtosParameters) //FromQuery vem da url
+        {
+            var produtos = _uof.ProdutoRepository.GetProdutos(produtosParameters);
+
+            var metadata = new
+            {
+                produtos.TotalCount,
+                produtos.PageSize,
+                produtos.CurrentPage,
+                produtos.TotalPages,
+                produtos.HasNext,
+                produtos.HasPrevious
+            };
+
+            Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+            var produtosDto = _mapper.Map<IEnumerable<ProdutoDTO>>(produtos);
+
+            return Ok(produtosDto);
+        }
+
+        [HttpGet("filter/preco/pagination")]
+        public ActionResult<IEnumerable<ProdutoDTO>> GetProdutosFilterPreco ([FromQuery] ProdutosFiltroPreco produtosFilterParameters)
+        {
+            var produtos = _uof.ProdutoRepository.GetProdutosFiltroPreco(produtosFilterParameters);
+
+            var metadata = new
+            {
+                produtos.TotalCount,
+                produtos.PageSize,
+                produtos.CurrentPage,
+                produtos.TotalPages,
+                produtos.HasNext,
+                produtos.HasPrevious
+            };
+
+            Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metadata));
 
             var produtosDto = _mapper.Map<IEnumerable<ProdutoDTO>>(produtos);
 
