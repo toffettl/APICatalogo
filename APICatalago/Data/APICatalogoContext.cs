@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using APICatalago.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace APICatalago.Data
 { 
-    public class APICatalogoContext : DbContext
+    public class APICatalogoContext : IdentityDbContext
     {
         public APICatalogoContext (DbContextOptions<APICatalogoContext> options)
             : base(options)

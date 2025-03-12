@@ -8,28 +8,27 @@ using APICatalogo.Extensions;
 using APICatalogo.Filters;
 using APICatalogo.Repositories;
 using APICatalogo.DTOs.Mappings;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System;
+
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<APICatalogoContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("APICatalagoContext") ?? throw new InvalidOperationException("Connection string 'APICatalagoContext' not found.")));
-
-builder.Services.AddTransient<IMeuServico, MeuServico>();
-// Add services to the container.
-builder.Services.Configure<ApiBehaviorOptions>(options =>
-{
-    options.DisableImplicitFromServicesParameters = true;
-});
-
-builder.Services.AddControllers().AddJsonOptions(options =>
-options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles).AddNewtonsoftJson();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<APICatalogoContext>(options =>
+                    options.UseMySql(mySqlConnection,
+                    ServerVersion.AutoDetect(mySqlConnection)));
+
 builder.Services.AddScoped<ApiLoggingFilter>();
+
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 builder.Services.AddAutoMapper(typeof(ProdutoDTOMappingProfile));
 
 var app = builder.Build();
@@ -39,13 +38,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.ConfigureExceptionHandler();
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

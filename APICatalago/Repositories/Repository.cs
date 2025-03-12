@@ -13,13 +13,13 @@ namespace APICatalogo.Repositories
         {
             _context = context;
         }
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return _context.Set<T>().AsNoTracking().ToList(); //set acessa uma tabela correspondente ao tipo T /AsNoTracking() deixa mais leve
+            return await _context.Set<T>().AsNoTracking().ToListAsync(); //set acessa uma tabela correspondente ao tipo T /AsNoTracking() deixa mais leve
         }
-        public T? Get(Expression<Func<T, bool>> predicate)
+        public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>().FirstOrDefault(predicate);
+            return await _context.Set<T>().FirstOrDefaultAsync(predicate);
         }
         public T Create(T entity)
         {

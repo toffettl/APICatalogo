@@ -1,8 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using APICatalogo.Models;
 
 namespace APICatalogo.Extensions
