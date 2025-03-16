@@ -25,24 +25,5 @@ public class CustomerLogger : ILogger
             Exception exception, Func<TState, Exception, string> formatter)
     {
         string mensagem = $"{logLevel.ToString()}: {eventId.Id} - {formatter(state, exception)}";
-
-        EscreverTextoNoArquivo(mensagem);
-    }
-
-    private void EscreverTextoNoArquivo(string mensagem)
-    {
-        string caminhoArquivoLog = @"d:\dados\log\Macoratti_Log.txt";
-        using (StreamWriter streamWriter = new StreamWriter(caminhoArquivoLog, true))
-        {
-            try
-            {
-                streamWriter.WriteLine(mensagem);
-                streamWriter.Close();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
     }
 }

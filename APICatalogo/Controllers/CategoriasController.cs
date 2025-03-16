@@ -4,12 +4,15 @@ using APICatalogo.Models;
 using APICatalogo.Pagination;
 using APICatalogo.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Newtonsoft.Json;
 using X.PagedList;
 
 namespace APICatalogo.Controllers;
 
+[EnableCors("OrigensComAcessoPermitido")]
 [Route("[controller]")]
 [ApiController]
 public class CategoriasController : ControllerBase
@@ -25,7 +28,7 @@ public class CategoriasController : ControllerBase
         _uof = uof;
     }
 
-    [Authorize]
+    //[Authorize]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CategoriaDTO>>> Get()
     {
@@ -133,6 +136,7 @@ public class CategoriasController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<ActionResult<CategoriaDTO>> Delete(int id)
     {
         var categoria = await _uof.CategoriaRepository.GetAsync(c => c.CategoriaId == id);

@@ -3,20 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\felip\\source\\repos\\APICatalago\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{39DDC5CB-B221-4367-8049-2B6332E26161}|APICatalago\\APICatalogo.csproj|c:\\users\\felip\\source\\repos\\apicatalago\\apicatalago\\logging\\customerlogger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{39DDC5CB-B221-4367-8049-2B6332E26161}|APICatalago\\APICatalogo.csproj|solutionrelative:apicatalago\\logging\\customerlogger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{39DDC5CB-B221-4367-8049-2B6332E26161}|APICatalago\\APICatalogo.csproj|c:\\users\\felip\\source\\repos\\apicatalago\\apicatalago\\filters\\apiexceptionfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{39DDC5CB-B221-4367-8049-2B6332E26161}|APICatalago\\APICatalogo.csproj|solutionrelative:apicatalago\\filters\\apiexceptionfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{39DDC5CB-B221-4367-8049-2B6332E26161}|APICatalago\\APICatalogo.csproj|c:\\users\\felip\\source\\repos\\apicatalago\\apicatalago\\logging\\customloggerprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{39DDC5CB-B221-4367-8049-2B6332E26161}|APICatalago\\APICatalogo.csproj|solutionrelative:apicatalago\\logging\\customloggerprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{39DDC5CB-B221-4367-8049-2B6332E26161}|APICatalago\\APICatalogo.csproj|c:\\users\\felip\\source\\repos\\apicatalago\\apicatalago\\logging\\customloggerproviderconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{39DDC5CB-B221-4367-8049-2B6332E26161}|APICatalago\\APICatalogo.csproj|solutionrelative:apicatalago\\logging\\customloggerproviderconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{977846CC-8D18-4386-8C20-3030FADEC0FB}|APICatalogo\\APICatalogo.csproj|c:\\users\\felip\\source\\repos\\apicatalago\\apicatalogo\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{977846CC-8D18-4386-8C20-3030FADEC0FB}|APICatalogo\\APICatalogo.csproj|solutionrelative:apicatalogo\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,62 +14,27 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CustomerLogger.cs",
-              "DocumentMoniker": "C:\\Users\\felip\\source\\repos\\APICatalago\\APICatalago\\Logging\\CustomerLogger.cs",
-              "RelativeDocumentMoniker": "APICatalago\\Logging\\CustomerLogger.cs",
-              "ToolTip": "C:\\Users\\felip\\source\\repos\\APICatalago\\APICatalago\\Logging\\CustomerLogger.cs",
-              "RelativeToolTip": "APICatalago\\Logging\\CustomerLogger.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAWAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\felip\\source\\repos\\APICatalago\\APICatalogo\\Program.cs",
+              "RelativeDocumentMoniker": "APICatalogo\\Program.cs",
+              "ToolTip": "C:\\Users\\felip\\source\\repos\\APICatalago\\APICatalogo\\Program.cs",
+              "RelativeToolTip": "APICatalogo\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-15T14:56:48.225Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ApiExceptionFilter.cs",
-              "DocumentMoniker": "C:\\Users\\felip\\source\\repos\\APICatalago\\APICatalago\\Filters\\ApiExceptionFilter.cs",
-              "RelativeDocumentMoniker": "APICatalago\\Filters\\ApiExceptionFilter.cs",
-              "ToolTip": "C:\\Users\\felip\\source\\repos\\APICatalago\\APICatalago\\Filters\\ApiExceptionFilter.cs",
-              "RelativeToolTip": "APICatalago\\Filters\\ApiExceptionFilter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-15T14:56:31.741Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CustomLoggerProviderConfiguration.cs",
-              "DocumentMoniker": "C:\\Users\\felip\\source\\repos\\APICatalago\\APICatalago\\Logging\\CustomLoggerProviderConfiguration.cs",
-              "RelativeDocumentMoniker": "APICatalago\\Logging\\CustomLoggerProviderConfiguration.cs",
-              "ToolTip": "C:\\Users\\felip\\source\\repos\\APICatalago\\APICatalago\\Logging\\CustomLoggerProviderConfiguration.cs",
-              "RelativeToolTip": "APICatalago\\Logging\\CustomLoggerProviderConfiguration.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-15T14:51:39.186Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CustomLoggerProvider.cs",
-              "DocumentMoniker": "C:\\Users\\felip\\source\\repos\\APICatalago\\APICatalago\\Logging\\CustomLoggerProvider.cs",
-              "RelativeDocumentMoniker": "APICatalago\\Logging\\CustomLoggerProvider.cs",
-              "ToolTip": "C:\\Users\\felip\\source\\repos\\APICatalago\\APICatalago\\Logging\\CustomLoggerProvider.cs",
-              "RelativeToolTip": "APICatalago\\Logging\\CustomLoggerProvider.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADAAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-15T14:50:29.602Z",
+              "WhenOpened": "2025-03-16T15:53:25.337Z",
               "EditorCaption": ""
             }
           ]
